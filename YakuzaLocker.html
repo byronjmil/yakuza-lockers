@@ -1,0 +1,58 @@
+<div style="text-align: center">
+    <div id="percento"></div>
+    <hr />
+    <div id="app"></div>
+    <hr />
+    <div id="db"></div>
+</div>
+
+<script>
+    const lockers = [{"id":"A1","found":true},{"id":"A2","found":true},{"id":"A3","found":false},{"id":"A4","found":true},{"id":"A5","found":true},{"id":"B1","found":true},{"id":"B2","found":true},{"id":"B3","found":false},{"id":"B4","found":true},{"id":"B5","found":false},{"id":"C1","found":false},{"id":"C2","found":true},{"id":"C3","found":false},{"id":"C4","found":false},{"id":"C5","found":false},{"id":"D1","found":false},{"id":"D2","found":false},{"id":"D3","found":true},{"id":"D4","found":false},{"id":"D5","found":false},{"id":"E1","found":true},{"id":"E2","found":false},{"id":"E3","found":true},{"id":"E4","found":true},{"id":"E5","found":false},{"id":"F1","found":true},{"id":"F2","found":true},{"id":"F3","found":true},{"id":"F4","found":false},{"id":"F5","found":false},{"id":"G1","found":true},{"id":"G2","found":true},{"id":"G3","found":false},{"id":"G4","found":true},{"id":"G5","found":true},{"id":"H1","found":true},{"id":"H2","found":true},{"id":"H3","found":false},{"id":"H4","found":false},{"id":"H5","found":true},{"id":"I1","found":false},{"id":"I2","found":false},{"id":"I3","found":false},{"id":"I4","found":false},{"id":"I5","found":true},{"id":"J1","found":false},{"id":"J2","found":true},{"id":"J3","found":false},{"id":"J4","found":false},{"id":"J5","found":false}];
+</script>
+<script>
+    const renderButtons = () => {
+        let appInnerHTML = '';
+        for(let i = 0; i < lockers.length; i+=1){
+            appInnerHTML += `
+                <div>
+                    ${
+                        (lockers[i].found) ?
+                        `
+                            <button
+                                style="width: 10%;"
+                                type="button"
+                                disabled
+                            >
+                                ${lockers[i].id}
+                            </button>
+                        ` :
+                        `
+                            <button
+                                style="width: 10%;"
+                                type="button"
+                                onclick="myFunction(${i})"
+                            >
+                                ${lockers[i].id}
+                            </button>
+                        `
+                    }
+                    
+                </div>
+            `;
+        }
+        document.getElementById('app').innerHTML = appInnerHTML;
+        document.getElementById('db').innerHTML = JSON.stringify(lockers);
+
+        let count = 0;
+        lockers.forEach(x => {
+            if(x.found){count += 1;}
+        });
+
+        document.getElementById('percento').innerHTML = `${Math.floor(count / lockers.length * 100)}% Complete`
+    }
+    const myFunction = (id) => {
+        lockers[id].found = true;
+        renderButtons();
+    }
+    renderButtons();
+</script>
